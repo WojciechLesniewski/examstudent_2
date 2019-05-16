@@ -21,6 +21,11 @@ node {
   switch (env.BRANCH_NAME) {
     // Roll out to prod environment
     case "canary":
+            // Create namespace 
+        sh("sudo kubectl --kubeconfig ~wojcio/.kube/config get ns ${appName}-${env.BRANCH_NAME} || sudo kubectl --kubeconfig ~wojcio/.kube/config create ns ${appName}-${env.BRANCH_NAME}")
+        withCredentials([usernamePassword(credentialsId: 'acr_auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+          sh "sudo kubectl --kubeconfig ~wojcio/.kube/config -n ${appName}-${env.BRANCH_NAME} get secret acr-auth || sudo kubectl --kubeconfig ~wojcio/.kube/config --namespace=${appName}-${env.BRANCH_NAME} create secret docker-registry acr-auth --docker-server ${acr} --docker-username $USERNAME --docker-password $PASSWORD"
+        }
         sh("sed -i.bak 's#${appRepo}#${imageTag}#' ./k8s/canary/*.yaml")
         sh("sudo kubectl --kubeconfig ~wojcio/.kube/config --namespace=${appName}-${env.BRANCH_NAME} apply -f k8s/services/")
         sh("sudo kubectl --kubeconfig ~wojcio/.kube/config --namespace=${appName} apply -f k8s/canary/")
