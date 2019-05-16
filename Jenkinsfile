@@ -23,8 +23,8 @@ node {
     case "canary":
         sh("sed -i.bak 's#${appRepo}#${imageTag}#' ./k8s/canary/*.yaml")
         sh("sudo kubectl --kubeconfig ~wojcio/.kube/config --namespace=${appName}-${env.BRANCH_NAME} apply -f k8s/services/")
-        sh("sudo kubectl --kubeconfig ~wojcio/.kube/config --namespace=${appName} apply -f k8s/canary/")
-        sh("echo http://`kubectl --namespace=${appName} get service/${appName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${appName}")
+        sh("sudo kubectl --kubeconfig ~wojcio/.kube/config --namespace=${appName}-${env.BRANCH_NAME} apply -f k8s/canary/")
+        sh("echo http://`kubectl --namespace=${appName} get service/${appName}-${env.BRANCH_NAME} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${appName}")
         break
 
      //Release branch
