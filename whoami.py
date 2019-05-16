@@ -8,7 +8,7 @@ VERSION = "0.2.0"
 @app.route('/')
 def index():
     message = socket.gethostname()
-    template = "I'm " + message
+    template = "I'm " + message + "from dev branch"
     return template
 
 @app.route('/health')
