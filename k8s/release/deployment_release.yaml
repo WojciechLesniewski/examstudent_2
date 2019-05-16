@@ -34,5 +34,5 @@ spec:
     targetPort: 8000
     protocol: TCP
   selector:
-app: whoamistudent2
+    app: whoamistudent2
 
