@@ -1,0 +1,23 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: whoamistudent2
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: whoamistudent2
+  template:
+    metadata:
+      name: whoamistudent2
+      labels:
+        app: whoamistudent2
+        env: production
+    spec:
+      containers:
+      - name: whoamistudent2
+        image: acrdemo22.azurecr.io/whoamistudent2:v1.0.0
+        ports:
+        - containerPort: 8000
+      imagePullSecrets:
+      - name: acr_auth
