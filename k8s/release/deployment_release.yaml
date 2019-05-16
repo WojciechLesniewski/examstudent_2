@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: whoamistudent2-dev
+  name: whoamistudent2-stage
 spec:
   replicas: 1
   selector:
@@ -12,7 +12,7 @@ spec:
       name: whoamistudent2
       labels:
         app: whoamistudent2
-        env: dev
+        env: stage
     spec:
       containers:
       - name: whoamistudent2
@@ -31,7 +31,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 80
+  - port: 8080
     targetPort: 8000
   selector:
     app: whoamistudent2

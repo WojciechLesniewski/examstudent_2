@@ -1,4 +1,8 @@
-whoami
+Exam for devops
 ======
 
-Simple HTTP docker service that prints it's container ID
+service_prod yaml file for prod in k8s/service
+service_canary yaml file
+service_dev yaml file in k8s/dev, also kubectl proxy 
+service_release yaml file in k8s/dev 
+
